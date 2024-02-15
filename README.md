@@ -1,6 +1,6 @@
 # The Marketing Pod Dev - Technical Task
 
-Thanks for applying for a developer role at The Marketing Pod. The purpose of this test is just to check how you would implement the following in a React application. You are free to spend as much time as you would need but we advise the task should take more that 4 - 6 hours at most.
+Thanks for applying for a developer role at The Marketing Pod. The purpose of this test is just to check how you would implement the following in a React application. You are free to spend as much time as you would need but we advise the task should take more that 4 - 6 hours at most. This isn't a test of your UI / UX skills, so dont worry we are not expecting a highly polished UI, just something functional.
 
 Once you have completed the task please add to Git and share the repo with us.
 
