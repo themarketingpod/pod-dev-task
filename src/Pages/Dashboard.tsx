@@ -15,7 +15,7 @@ type User = {
 function DashboardPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -51,6 +51,18 @@ function DashboardPage() {
       });
   }, []);
 
+  const playHoverSound = () => {
+    const audio = new Audio('/public/Audio/click-sound.mp3');
+    audio.volume = 0.4;
+    audio.play();
+  };
+
+  const playSelectSound = () => {
+    const audio = new Audio('/public/Audio/select-sound.mp3');
+    audio.volume = 0.3;
+    audio.play();
+  };
+
   return (
     <div className="flex justify-center text-center items-center">
       <div className="p-4">
@@ -74,15 +86,24 @@ function DashboardPage() {
               </thead>
               <tbody>
                 {users.map((user, index) => (
-                  <tr key={user.id} className={`text-center cursor-pointer ${index % 2 === 0 ? 'bg-gray-100' : ''}`} onClick={() => { setSelectedUser(user); setIsModalOpen(true); }}>
+                  <tr
+                    key={user.id}
+                    className={`text-center cursor-pointer ${index % 2 === 0 ? 'bg-gray-100' : ''} transition duration-100 hover:bg-yellow-200`}
+                    onMouseEnter={playHoverSound} // Attach onMouseEnter event listener
+                    onClick={() => {
+                      setSelectedUser(user);
+                      setIsModalOpen(true);
+                      playSelectSound();
+                    }}
+                  >
                     <td className="p-2 border">{user.id}</td>
                     <td className="p-2 border relative">
-                        <img src={user.image} alt="User" className="w-10 h-10 mx-auto" />
-                        {user.gender === "male" ? (
-                            <span className="absolute top-0 right-0 bg-blue-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs mt-0.5">♂</span>
-                        ) : (
-                            <span className="absolute top-0 right-0 bg-pink-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs mt-0.5">♀</span>
-                        )}
+                      <img src={user.image} alt="User" className="w-10 h-10 mx-auto" />
+                      {user.gender === "male" ? (
+                        <span className="absolute top-0 right-0 bg-blue-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs mt-0.5">♂</span>
+                      ) : (
+                        <span className="absolute top-0 right-0 bg-pink-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs mt-0.5">♀</span>
+                      )}
                     </td>
                     <td className="p-2 border">{user.firstName} {user.lastName}</td>
                     <td className="p-2 border">{user.email}</td>
@@ -93,7 +114,14 @@ function DashboardPage() {
             </table>
           </div>
         )}
-        <UserModal user={selectedUser} onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} />
+        {/* Conditionally render the UserModal based on isModalOpen state */}
+        {isModalOpen && (
+        <div className="modal-container fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+            <UserModal user={selectedUser} onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} />
+            </div>
+        </div>
+        )}
       </div>
     </div>
   );
