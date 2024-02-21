@@ -52,9 +52,10 @@ function DashboardPage() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center text-center items-center">
       <div className="p-4">
-        <h1 className="text-3xl font-semibold text-center mb-4">Dashboard</h1>
+        <h1 className="text-3xl font-semibold mb-2">User Dashboard</h1>
+        <p className="mb-4">Select a user from the table below to view more details</p>
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -69,18 +70,23 @@ function DashboardPage() {
                   <th className="p-2">Name</th>
                   <th className="p-2">Email</th>
                   <th className="p-2">Age</th>
-                  <th className="p-2">Gender</th>
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => (
-                  <tr key={user.id} className="text-center cursor-pointer" onClick={() => { setSelectedUser(user); setIsModalOpen(true); }}>
+                {users.map((user, index) => (
+                  <tr key={user.id} className={`text-center cursor-pointer ${index % 2 === 0 ? 'bg-gray-100' : ''}`} onClick={() => { setSelectedUser(user); setIsModalOpen(true); }}>
                     <td className="p-2 border">{user.id}</td>
-                    <td className="p-2 border"><img src={user.image} alt="User" className="w-10 h-10 rounded-full mx-auto" /></td>
+                    <td className="p-2 border relative">
+                        <img src={user.image} alt="User" className="w-10 h-10 mx-auto" />
+                        {user.gender === "male" ? (
+                            <span className="absolute top-0 right-0 bg-blue-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs mt-0.5">♂</span>
+                        ) : (
+                            <span className="absolute top-0 right-0 bg-pink-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs mt-0.5">♀</span>
+                        )}
+                    </td>
                     <td className="p-2 border">{user.firstName} {user.lastName}</td>
                     <td className="p-2 border">{user.email}</td>
                     <td className="p-2 border">{user.age}</td>
-                    <td className="p-2 border">{user.gender}</td>
                   </tr>
                 ))}
               </tbody>
