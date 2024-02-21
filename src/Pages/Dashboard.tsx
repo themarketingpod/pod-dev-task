@@ -19,6 +19,8 @@ function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [page, setPage] = useState(1); // Current page number
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const usersPerPage = 20; // Number of users per page
 
   useEffect(() => {
@@ -55,12 +57,28 @@ function DashboardPage() {
       });
   }, [page]);
 
+  // Filter users based on search term
+  useEffect(() => {
+    const filtered = users.filter(user => {
+      return (
+        user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.id.toString().includes(searchTerm.toLowerCase())
+      );
+    });
+    setFilteredUsers(filtered);
+  }, [searchTerm, users]);
+
   const handlePreviousPage = () => {
     setPage(prevPage => Math.max(prevPage - 1, 1)); // Ensure page number doesn't go below 1
   };
 
   const handleNextPage = () => {
     setPage(prevPage => prevPage + 1);
+  };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
   };
 
   const playHoverSound = () => {
@@ -80,9 +98,19 @@ function DashboardPage() {
       <div className="p-4">
         <h1 className="text-3xl font-semibold mb-2">User Dashboard</h1>
         <p className="mb-4">Select a user from the table below to view more details</p>
+        <div className="flex justify-center mb-4">
+          <input
+            type="text"
+            placeholder="Search by Name or ID"
+            value={searchTerm}
+            onChange={handleSearch}
+            className="mr-2 px-2 py-1 border border-gray-300 rounded"
+          />
+          <button onClick={() => setSearchTerm('')} className="px-4 py-1 bg-gray-300 text-gray-800 rounded">Clear</button>
+        </div>
         <div className="mb-4">
           <button onClick={handlePreviousPage} disabled={page === 1} className="px-4 py-2 mr-2 bg-blue-500 text-white rounded-md disabled:bg-gray-300">Previous Page</button>
-          <button onClick={handleNextPage} disabled={users.length < usersPerPage} className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:bg-gray-300">Next Page</button>
+          <button onClick={handleNextPage} disabled={page === 5} className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:bg-gray-300">Next Page</button>
         </div>
         {loading ? (
           <p>Loading...</p>
@@ -101,7 +129,7 @@ function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user, index) => (
+                {filteredUsers.map((user, index) => (
                   <tr
                     key={user.id}
                     className={`text-center cursor-pointer ${index % 2 === 0 ? 'bg-gray-100' : ''} transition duration-100 hover:bg-yellow-200`}
