@@ -18,15 +18,12 @@ function DashboardPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [page, setPage] = useState(1); // Current page number
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
-  const usersPerPage = 20; // Number of users per page
 
   useEffect(() => {
-    setLoading(true);
-    const skip = (page - 1) * usersPerPage; // Calculate the number of users to skip
-    fetch(`https://dummyjson.com/users/?skip=${skip}&limit=${usersPerPage}`)
+    setLoading(true); // Calculate the number of users to skip
+    fetch(`https://dummyjson.com/users?limit=0`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch users');
@@ -55,7 +52,7 @@ function DashboardPage() {
         setLoading(false);
         console.error(error);
       });
-  }, [page]);
+  }, []);
 
   // Filter users based on search term
   useEffect(() => {
@@ -68,14 +65,6 @@ function DashboardPage() {
     });
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
-
-  const handlePreviousPage = () => {
-    setPage(prevPage => Math.max(prevPage - 1, 1)); // Ensure page number doesn't go below 1
-  };
-
-  const handleNextPage = () => {
-    setPage(prevPage => prevPage + 1);
-  };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -107,10 +96,6 @@ function DashboardPage() {
             className="mr-2 px-2 py-1 border border-gray-300 rounded"
           />
           <button onClick={() => setSearchTerm('')} className="px-4 py-1 bg-gray-300 text-gray-800 rounded">Clear</button>
-        </div>
-        <div className="mb-4">
-          <button onClick={handlePreviousPage} disabled={page === 1} className="px-4 py-2 mr-2 bg-blue-500 text-white rounded-md disabled:bg-gray-300">Previous Page</button>
-          <button onClick={handleNextPage} disabled={page === 5} className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:bg-gray-300">Next Page</button>
         </div>
         {loading ? (
           <p>Loading...</p>
