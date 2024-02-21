@@ -10,10 +10,11 @@ type User = {
     gender: string;
   };
 
-type UserModalProps = {
-  user: User | null;
-  onClose: () => void;
-};
+  type UserModalProps = {
+    user: User | null;
+    onClose: () => void;
+    isOpen: boolean; // Add the isOpen prop here
+  };
 
 const UserModal: React.FC<UserModalProps> = ({ user, onClose }) => {
   if (!user) return null;

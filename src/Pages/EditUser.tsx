@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
 
 // Define the type for the user object
 type User = {

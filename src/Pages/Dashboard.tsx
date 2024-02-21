@@ -29,7 +29,7 @@ function DashboardPage() {
       })
       .then(data => {
         // Extracting and mapping desired properties from each user
-        const updatedUsers = data.users.map((user: any) => {
+        const updatedUsers = data.users.map((user: User) => {
           return {
             id: user.id,
             firstName: user.firstName,
@@ -55,32 +55,38 @@ function DashboardPage() {
     <div className="flex justify-center items-center">
       <div className="p-4">
         <h1 className="text-3xl font-semibold text-center mb-4">Dashboard</h1>
-        <div className="overflow-x-auto">
-          <table className="w-full table-auto border-collapse border border-gray-600">
-            <thead>
-              <tr className="bg-gray-800 text-white">
-                <th className="p-2">ID</th>
-                <th className="p-2">Image</th>
-                <th className="p-2">Name</th>
-                <th className="p-2">Email</th>
-                <th className="p-2">Age</th>
-                <th className="p-2">Gender</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map(user => (
-                <tr key={user.id} className="text-center cursor-pointer" onClick={() => { setSelectedUser(user); setIsModalOpen(true); }}>
-                  <td className="p-2 border">{user.id}</td>
-                  <td className="p-2 border"><img src={user.image} alt="User" className="w-10 h-10 rounded-full mx-auto" /></td>
-                  <td className="p-2 border">{user.firstName} {user.lastName}</td>
-                  <td className="p-2 border">{user.email}</td>
-                  <td className="p-2 border">{user.age}</td>
-                  <td className="p-2 border">{user.gender}</td>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full table-auto border-collapse border border-gray-600">
+              <thead>
+                <tr className="bg-gray-800 text-white">
+                  <th className="p-2">ID</th>
+                  <th className="p-2">Image</th>
+                  <th className="p-2">Name</th>
+                  <th className="p-2">Email</th>
+                  <th className="p-2">Age</th>
+                  <th className="p-2">Gender</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {users.map(user => (
+                  <tr key={user.id} className="text-center cursor-pointer" onClick={() => { setSelectedUser(user); setIsModalOpen(true); }}>
+                    <td className="p-2 border">{user.id}</td>
+                    <td className="p-2 border"><img src={user.image} alt="User" className="w-10 h-10 rounded-full mx-auto" /></td>
+                    <td className="p-2 border">{user.firstName} {user.lastName}</td>
+                    <td className="p-2 border">{user.email}</td>
+                    <td className="p-2 border">{user.age}</td>
+                    <td className="p-2 border">{user.gender}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
         <UserModal user={selectedUser} onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} />
       </div>
     </div>
