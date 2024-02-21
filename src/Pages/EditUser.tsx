@@ -13,6 +13,7 @@ type User = {
 export default function EditUser() {
   // Access route parameters using useParams
   const { userId } = useParams();
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State to manage confirmation modal
 
   // State to store user information
   const [user, setUser] = useState<User | null>(null); // Specify the type as User | null
@@ -78,6 +79,27 @@ export default function EditUser() {
         });
       }
     }
+
+    // Function to handle user deletion
+  function handleDeleteUser() {
+    if (user) {
+      const deleteUserUrl = `https://dummyjson.com/users/${user.id}`;
+
+      fetch(deleteUserUrl, {
+        method: 'DELETE'
+      })
+        .then(response => {
+          if (response.ok) {
+            setIsConfirmationModalOpen(true); // Display confirmation modal upon successful deletion
+          } else {
+            throw new Error('Failed to delete user');
+          }
+        })
+        .catch(error => {
+          console.error('Failed to delete user:', error);
+        });
+    }
+  }
 
     return (
       <div className="flex justify-center items-center">
