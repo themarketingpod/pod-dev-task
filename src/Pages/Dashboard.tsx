@@ -18,9 +18,13 @@ function DashboardPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [page, setPage] = useState(1); // Current page number
+  const usersPerPage = 20; // Number of users per page
 
   useEffect(() => {
-    fetch('https://dummyjson.com/users/')
+    setLoading(true);
+    const skip = (page - 1) * usersPerPage; // Calculate the number of users to skip
+    fetch(`https://dummyjson.com/users/?skip=${skip}&limit=${usersPerPage}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch users');
@@ -47,9 +51,17 @@ function DashboardPage() {
       .catch(error => {
         setError('Failed to fetch users. Please try again later.');
         setLoading(false);
-        return error;
+        console.error(error);
       });
-  }, []);
+  }, [page]);
+
+  const handlePreviousPage = () => {
+    setPage(prevPage => Math.max(prevPage - 1, 1)); // Ensure page number doesn't go below 1
+  };
+
+  const handleNextPage = () => {
+    setPage(prevPage => prevPage + 1);
+  };
 
   const playHoverSound = () => {
     const audio = new Audio('/public/Audio/click-sound.mp3');
@@ -68,6 +80,10 @@ function DashboardPage() {
       <div className="p-4">
         <h1 className="text-3xl font-semibold mb-2">User Dashboard</h1>
         <p className="mb-4">Select a user from the table below to view more details</p>
+        <div className="mb-4">
+          <button onClick={handlePreviousPage} disabled={page === 1} className="px-4 py-2 mr-2 bg-blue-500 text-white rounded-md disabled:bg-gray-300">Previous Page</button>
+          <button onClick={handleNextPage} disabled={users.length < usersPerPage} className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:bg-gray-300">Next Page</button>
+        </div>
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
