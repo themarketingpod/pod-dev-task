@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ConfirmationModal from './ConfirmationModal'; // Import ConfirmationModal component
+import ConfirmationModal from './ConfirmationModal';
 
 type User = {
     id: number;
@@ -25,7 +25,7 @@ const playDeselectSound = () => {
 };
 
 const UserModal: React.FC<UserModalProps> = ({ user, onClose, isOpen }) => {
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State to manage confirmation modal
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
   const modalOverlayClass = isOpen ? "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" : "hidden";
   const modalClass = isOpen ? "bg-white rounded-lg shadow-lg p-6" : "hidden";
@@ -42,7 +42,9 @@ const UserModal: React.FC<UserModalProps> = ({ user, onClose, isOpen }) => {
       })
         .then(response => {
           if (response.ok) {
-            setIsConfirmationModalOpen(true); // Display confirmation modal upon successful deletion
+            setIsConfirmationModalOpen(false);
+            onClose(); // Close the UserModal
+            playDeselectSound();
           } else {
             throw new Error('Failed to delete user');
           }
@@ -53,12 +55,21 @@ const UserModal: React.FC<UserModalProps> = ({ user, onClose, isOpen }) => {
     }
   }
 
+  const handleCloseConfirmationModal = () => {
+    setIsConfirmationModalOpen(false);
+    handleDeleteUser();
+  };
+
   return (
     <>
       <div className={modalOverlayClass}>
         <div className={modalClass}>
           <div className="relative">
-            <img className="w-full" src={user.image} alt="User" />
+          <div className="flex items-center justify-center">
+          <div className={`w-40 h-40 overflow-hidden ${user.gender === 'male' ? 'bg-blue-300' : 'bg-pink-300'}`}>
+            <img className="w-full h-full object-cover" src={user.image} alt="User" />
+          </div>
+        </div>
             <div 
               className="absolute top-1 right-1 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md cursor-pointer" 
               onClick={() => {
@@ -74,7 +85,6 @@ const UserModal: React.FC<UserModalProps> = ({ user, onClose, isOpen }) => {
               <p className="font-bold text-xl">{user.firstName} {user.lastName}</p>
               <span className={`bg-${user.gender === "male" ? 'blue' : 'pink'}-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs ml-2`}>{user.gender === "male" ? '♂' : '♀'}</span>
             </div>
-            <p className="text-gray-700 text-base mb-2">ID: {user.id}</p>
             <a className="text-blue-500 hover:underline" href={`mailto:${user.email}`}>{user.email}</a>
           </div>
           <Link to={`/users/${user.id}/edit`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 inline-block">
@@ -82,14 +92,16 @@ const UserModal: React.FC<UserModalProps> = ({ user, onClose, isOpen }) => {
           </Link>
           <button 
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block"
-            onClick={handleDeleteUser} // Attach onClick event handler for delete
+            onClick={handleDeleteUser}
           >
             Delete User
           </button>
         </div>
       </div>
-      {/* Confirmation Modal */}
-      <ConfirmationModal isOpen={isConfirmationModalOpen} onClose={() => setIsConfirmationModalOpen(false)} />
+      <ConfirmationModal 
+        isOpen={isConfirmationModalOpen} 
+        onClose={handleCloseConfirmationModal} 
+      />
     </>
   );
 };

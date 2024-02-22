@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import UserModal from './Components/UserModal';
+import UserModal from '../Components/UserModal';
 
-// Define the User type
 type User = {
   id: number;
   firstName: string;
@@ -22,7 +21,7 @@ function DashboardPage() {
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    setLoading(true); // Calculate the number of users to skip
+    setLoading(true);
     fetch(`https://dummyjson.com/users?limit=0`)
       .then(response => {
         if (!response.ok) {
@@ -118,7 +117,7 @@ function DashboardPage() {
                   <tr
                     key={user.id}
                     className={`text-center cursor-pointer ${index % 2 === 0 ? 'bg-gray-100' : ''} transition duration-100 hover:bg-yellow-200`}
-                    onMouseEnter={playHoverSound} // Attach onMouseEnter event listener
+                    onMouseEnter={playHoverSound}
                     onClick={() => {
                       setSelectedUser(user);
                       setIsModalOpen(true);
