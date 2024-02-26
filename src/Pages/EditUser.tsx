@@ -120,7 +120,6 @@ export default function EditUser() {
                   First Name
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="firstName"
                   type="text"
                   placeholder="First Name"
@@ -133,7 +132,6 @@ export default function EditUser() {
                   Last Name
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="lastName"
                   type="text"
                   placeholder="Last Name"
@@ -146,7 +144,6 @@ export default function EditUser() {
                   Email
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="email"
                   type="email"
                   placeholder="Email"
@@ -159,7 +156,6 @@ export default function EditUser() {
                   Age
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="age"
                   type="number"
                   placeholder="Age"
@@ -172,7 +168,6 @@ export default function EditUser() {
                   Gender
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="gender"
                   type="gender"
                   placeholder="Gender"

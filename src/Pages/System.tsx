@@ -17,8 +17,8 @@ export default function DesignSystem() {
             </div>
             <div className="my-4 flex flex-col w-[200px]">
                 <button className="btn">This is a button</button>
-                <button className="btn btn-accept">Primary button</button>
-                <button className="btn btn-cancel">Primary button</button>
+                <button className="btn btn-accept">Accept Button</button>
+                <button className="btn btn-cancel">Cancel Button</button>
             </div>
             <div>
                 <select>

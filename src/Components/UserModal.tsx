@@ -85,7 +85,7 @@ const UserModal: React.FC<UserModalProps> = ({ user, onClose, isOpen }) => {
               <p className="font-bold text-xl">{user.firstName} {user.lastName}</p>
               <span className={`bg-${user.gender === "male" ? 'blue' : 'pink'}-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs ml-2`}>{user.gender === "male" ? '♂' : '♀'}</span>
             </div>
-            <a className="text-blue-500 hover:underline" href={`mailto:${user.email}`}>{user.email}</a>
+            <a href={`mailto:${user.email}`}>{user.email}</a>
           </div>
           <Link to={`/users/${user.id}/edit`} className="btn py-2 px-4">
             Update User
