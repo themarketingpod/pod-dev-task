@@ -191,7 +191,7 @@ export default function EditUser() {
               </button>
               <button 
                 type="button"
-                className="btn btn-reject"
+                className="btn btn-cancel"
                 onClick={handleDeleteUser}
               >
                 Delete User

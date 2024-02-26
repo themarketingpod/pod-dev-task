@@ -91,7 +91,7 @@ const UserModal: React.FC<UserModalProps> = ({ user, onClose, isOpen }) => {
             Update User
           </Link>
           <button 
-            className="btn btn-reject py-2 px-4"
+            className="btn btn-cancel py-2 px-4"
             onClick={handleDeleteUser}
           >
             Delete User
