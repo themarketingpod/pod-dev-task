@@ -105,10 +105,10 @@ export default function EditUser() {
   }
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center pt-[64px] h-screen">
       <div className="user-card">
         {user && (
-          <div className="p-10 max-w-sm bg-white rounded-lg overflow-hidden shadow-lg text-center">
+          <div className="p-10 max-w-sm bg-slate-300 rounded-lg overflow-hidden shadow-lg text-center dark:bg-gray-700">
             <div className="flex items-center justify-center">
               <div className={`w-40 h-40 overflow-hidden ${user.gender === 'male' ? 'bg-blue-300' : 'bg-pink-300'}`}>
                 <img className="w-full h-full object-cover" src={user.image} alt="User" />

@@ -82,7 +82,7 @@ function DashboardPage() {
   };
 
   return (
-    <div className="flex justify-center text-center items-center">
+    <div className="flex justify-center text-center mt-[64px] h-screen">
       <div className="p-4">
         <h1>User Dashboard</h1>
         <p className="mb-4">Select a user from the table below to view more details</p>
@@ -116,7 +116,7 @@ function DashboardPage() {
                 {filteredUsers.map((user, index) => (
                   <tr
                     key={user.id}
-                    className={`text-center cursor-pointer ${index % 2 === 0 ? 'bg-gray-100' : ''} transition duration-100 hover:bg-yellow-200`}
+                    className={`text-center cursor-pointer ${index % 2 === 0 ? 'bg-gray-100 dark:bg-gray-800' : ''} transition duration-100 hover:bg-yellow-200 dark:hover:bg-yellow-700`}
                     onMouseEnter={playHoverSound}
                     onClick={() => {
                       setSelectedUser(user);
@@ -124,11 +124,11 @@ function DashboardPage() {
                       playSelectSound();
                     }}
                   >
-                    <td className="p-2 border">{user.id}</td>
-                    <td className="p-2 border relative">
+                    <td className="p-3 border">{user.id}</td>
+                    <td className="p-3 border relative">
                       <img src={user.image} alt="User" className="w-10 h-10 mx-auto" />
                       {user.gender === "male" ? (
-                        <span className="absolute top-0 right-0 bg-blue-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs mt-0.5">♂</span>
+                        <span className="absolute top-0 right-0 bg-blue-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs m-1">♂</span>
                       ) : (
                         <span className="absolute top-0 right-0 bg-pink-300 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs mt-0.5">♀</span>
                       )}

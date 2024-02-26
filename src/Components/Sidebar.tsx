@@ -9,10 +9,10 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="fixed z-50">
       {/* Toggle button */}
       <button
-        className="fixed top-0 left-0 w-16 h-16 bg-gray-700 text-white flex items-center justify-center focus:outline-none z-10"
+        className="fixed top-0 left-0 w-16 h-16 bg-gray-700 text-white flex items-center justify-center focus:outline-none z-20"
         onClick={toggleSidebar}
       >
         {isOpen ? (
@@ -26,7 +26,7 @@ const Sidebar = () => {
         )}
       </button>
       {/* Sidebar */}
-      <div className={`fixed bottom-0 left-0 bg-gray-800 text-white flex flex-col items-center h-full overflow-hidden transition-all duration-300 ${isOpen ? 'w-16' : 'w-0'}`}>
+      <div className={`fixed bottom-0 left-0 bg-gray-700 text-white flex flex-col items-center h-full overflow-hidden transition-all duration-300 ${isOpen ? 'w-16' : 'w-0'}`}>
         <div className="mt-8">
           <div className="mb-4">
             {/* Link to the dashboard */}
