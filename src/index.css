@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-3xl font-bold mb-2;
+    }
+
+    h2 {
+        @apply text-2xl font-semibold mb-1;
+    }
+
+    a {
+        @apply text-blue-700 underline hover:text-purple-500 transition;
+    }
+
+    .btn {
+        @apply px-4 py-2 bg-blue-700 text-white rounded-md shadow-md no-underline  mx-1;
+    }
+
+    .btn:hover {
+        @apply transition duration-300 ease-in-out opacity-75;
+    }
+
+    a.btn:hover {
+        @apply text-white no-underline opacity-75;
+    }
+
+    .btn-accept {
+        @apply bg-green-500;
+    }
+
+    .btn-reject {
+        @apply bg-red-500;
+    }
+}

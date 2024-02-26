@@ -87,11 +87,11 @@ const UserModal: React.FC<UserModalProps> = ({ user, onClose, isOpen }) => {
             </div>
             <a className="text-blue-500 hover:underline" href={`mailto:${user.email}`}>{user.email}</a>
           </div>
-          <Link to={`/users/${user.id}/edit`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 inline-block">
+          <Link to={`/users/${user.id}/edit`} className="btn py-2 px-4">
             Update User
           </Link>
           <button 
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block"
+            className="btn btn-reject py-2 px-4"
             onClick={handleDeleteUser}
           >
             Delete User

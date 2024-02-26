@@ -26,7 +26,7 @@ const Sidebar = () => {
         )}
       </button>
       {/* Sidebar */}
-      <div className={`fixed bottom-0 left-0 bg-gray-800 text-white w-16 flex flex-col items-center h-full overflow-hidden transition-all duration-300 ${isOpen ? 'w-8' : 'w-0'}`}>
+      <div className={`fixed bottom-0 left-0 bg-gray-800 text-white flex flex-col items-center h-full overflow-hidden transition-all duration-300 ${isOpen ? 'w-16' : 'w-0'}`}>
         <div className="mt-8">
           <div className="mb-4">
             {/* Link to the dashboard */}

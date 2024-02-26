@@ -84,7 +84,7 @@ function DashboardPage() {
   return (
     <div className="flex justify-center text-center items-center">
       <div className="p-4">
-        <h1 className="text-3xl font-semibold mb-2">User Dashboard</h1>
+        <h1>User Dashboard</h1>
         <p className="mb-4">Select a user from the table below to view more details</p>
         <div className="flex justify-center mb-4">
           <input
@@ -94,7 +94,7 @@ function DashboardPage() {
             onChange={handleSearch}
             className="mr-2 px-2 py-1 border border-gray-300 rounded"
           />
-          <button onClick={() => setSearchTerm('')} className="px-4 py-1 bg-gray-300 text-gray-800 rounded">Clear</button>
+          <button onClick={() => setSearchTerm('')} className="btn">Clear</button>
         </div>
         {loading ? (
           <p>Loading...</p>
